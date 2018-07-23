@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1005157928451",
+    "firebase_url": "https://yokalodge.firebaseio.com",
+    "project_id": "yokalodge",
+    "storage_bucket": "yokalodge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005157928451:android:bd42c93150ec579c",
+        "android_client_info": {
+          "package_name": "com.example.icode.yokalodge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005157928451-ph97h5jatkhuu5domv5ah1cpdkkmqd7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.icode.yokalodge",
+            "certificate_hash": "cb8c0af6f657780058faa47307fa5bf4e11d4fcd"
+          }
+        },
+        {
+          "client_id": "1005157928451-3ujggmkb44k68h9tnblnqr3u7msd1h4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC43Mcdmtm7t4kImQNeqaWWglMI8d3PotE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005157928451-3ujggmkb44k68h9tnblnqr3u7msd1h4q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
