@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
@@ -74,10 +76,12 @@ public class SignUpActivity extends AppCompatActivity {
         }
         
         appCompatEditTextEmail = findViewById(R.id.appCompatEditTextEmail);
+        //sets the input type for the email editText
+        //appCompatEditTextEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS );
         appCompatEditTextPassword = findViewById(R.id.appCompatEditTextPassword);
         appCompatEditTextConfirmPassword = findViewById(R.id.appCompatEditTextConfirmPassword);
         appCompatEditTextMobileNumber = findViewById(R.id.appCompatEditTextMobileNumber);
-        appCompatButton = findViewById(R.id.appCompatButtonLogin);
+        //appCompatButton = findViewById(R.id.appCompatButtonLogin);
 
         //spinner or drop down view and its arrayAdapter instantiation
         appCompatSpinnerGender = findViewById(R.id.spinnerGender);
@@ -90,9 +94,9 @@ public class SignUpActivity extends AppCompatActivity {
         dB = FirebaseDatabase.getInstance();
         dbRef = dB.getReference().child("Users");
 
-        //instantiation of the FirebaseAuth instance
-        //mAuth = FirebaseAuth.getInstance();
     }
+
+
 
     //method for the sign Up button
     public void onSignUpButtonClick(View view){
@@ -102,12 +106,12 @@ public class SignUpActivity extends AppCompatActivity {
         String password = appCompatEditTextPassword.getText().toString().trim();
         String confirm_password = appCompatEditTextConfirmPassword.getText().toString().trim();
         String mobile_number = appCompatEditTextMobileNumber.getText().toString().trim();
-        String gender = appCompatSpinnerGender.getSelectedItem().toString().trim();
+        //String gender = appCompatSpinnerGender.getSelectedItem().toString().trim();
 
         String error_field = "This field cannot be left blank";
 
         //checks the field to make sure they are not empty before user logs in
-        if(email.equalsIgnoreCase("")){
+        if(TextUtils.isEmpty(email) && !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             //appCompatButton.setEnabled(false);
             appCompatEditTextEmail.setError(error_field);
             Toast.makeText(SignUpActivity.this, "Email is a required field",Toast.LENGTH_SHORT).show();
@@ -137,7 +141,7 @@ public class SignUpActivity extends AppCompatActivity {
             appCompatEditTextConfirmPassword.setError(error_field);
             Toast.makeText(SignUpActivity.this, "Mobile Number is a required field",Toast.LENGTH_SHORT).show();
         }
-        else if(!email.equalsIgnoreCase("") && (!password.equalsIgnoreCase("")) ){
+        else{
             //appCompatButton.setEnabled(true);
             signUpUser();
         }
@@ -148,22 +152,23 @@ public class SignUpActivity extends AppCompatActivity {
     //sign Up method
     public void signUpUser(){
 
-        progressDialog = ProgressDialog.show(SignUpActivity.this,"Signing Up" , null,true,true);
+        //create a new progressDialog and sets a message on it
+        progressDialog = ProgressDialog.show(SignUpActivity.this,"" , null,true,true);
         progressDialog.setMessage("Please wait...");
 
         //get text from the EditText fields
-        String email = appCompatEditTextEmail.getText().toString().trim();
+      /*  String email = appCompatEditTextEmail.getText().toString().trim();
         String password = appCompatEditTextPassword.getText().toString().trim();
         String confirm_password = appCompatEditTextConfirmPassword.getText().toString().trim();
         String mobile_number = appCompatEditTextMobileNumber.getText().toString().trim();
-        String gender = appCompatSpinnerGender.getSelectedItem().toString().trim();
+        String gender = appCompatSpinnerGender.getSelectedItem().toString().trim(); */
 
         //get the values from the fields and sets them to that of the values in the database
-        users.setEmail_address(email);
-        users.setPassword(password);
-        users.setConfirm_password(confirm_password);
-        users.setMobile_number(mobile_number);
-        users.setGender(gender);
+        users.setEmail_address(appCompatEditTextEmail.getText().toString().trim());
+        users.setPassword(appCompatEditTextPassword.getText().toString().trim());
+        users.setConfirm_password(appCompatEditTextConfirmPassword.getText().toString().trim());
+        users.setMobile_number(appCompatEditTextMobileNumber.getText().toString().trim());
+        users.setGender(appCompatSpinnerGender.getSelectedItem().toString().trim());
 
         dbRef.child(users.getEmail_address()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -180,7 +185,7 @@ public class SignUpActivity extends AppCompatActivity {
                     // clears the textfields after a successful Sign Up
                     clearTextFields();
                     //creates and displays a toast
-                    Toast.makeText(SignUpActivity.this, "You have Successfully Signed Up",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, " You have Successfully Signed Up ",Toast.LENGTH_SHORT).show();
                     //starts the home activity after a successful Sign Up
                     //startActivity(new Intent(SignUpActivity.this,HomeActivity.class));
                 }
@@ -192,8 +197,8 @@ public class SignUpActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             timer.cancel();
                         }
-                    },5000);
-                    Toast.makeText(SignUpActivity.this, "",Toast.LENGTH_SHORT).show();
+                    },5000); //the timer will count 5 seconds..
+                    Toast.makeText(SignUpActivity.this, "Cannot connect to the database, Please Try Again...!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -201,7 +206,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    //clear textfields
+    //clear text from the textfields
 public void clearTextFields(){
         appCompatEditTextEmail.setText(null);
         appCompatEditTextPassword.setText(null);

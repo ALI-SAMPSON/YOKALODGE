@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.icode.yokalodge.R;
+import com.example.icode.yokalodge.models.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,6 +23,14 @@ import java.util.TimerTask;
 public class LoginActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
+
+    private FirebaseDatabase dB;
+    private DatabaseReference dbRef;
+    private Users users;
+
+    //Email and password EditText
+    private AppCompatEditText appCompatEditTextEmail;
+    private AppCompatEditText appCompatEditTextPassword;
 
     //an instance of the Firebase Authentication class
     private FirebaseAuth mAuth;
@@ -34,23 +47,52 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //instantiation of the FirebaseAuth instance
-        mAuth = FirebaseAuth.getInstance();
+        dB = FirebaseDatabase.getInstance();
+        dbRef = dB.getReference().child("Users");
+
+        appCompatEditTextEmail = findViewById(R.id.appCompatEditTextEmail);
+        appCompatEditTextPassword = findViewById(R.id.appCompatEditTextPassword);
+
 
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        //checks if the user is signed and updates the UI accordingly
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUi(currentUser);
-    }
+
 
 
     //method to be called when the login Button is clicked or tapped
     public void onLoginButtonClick(View view){
+
+        String error_field = "This field cannot be left blank";
+
+        String email = appCompatEditTextEmail.getText().toString().trim();
+        String password = appCompatEditTextPassword.getText().toString().trim();
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            appCompatEditTextEmail.setError("Invalid Email Address...Please enter a valid email address");
+            Toast.makeText(LoginActivity.this,"Invalid Email Address...Please enter a valid email address", Toast.LENGTH_SHORT).show();
+        }
+        else if(Patterns.EMAIL_ADDRESS.matcher("").matches()){
+            appCompatEditTextEmail.setError(error_field);
+            Toast.makeText(LoginActivity.this,"Email is a required field",Toast.LENGTH_SHORT).show();
+        }
+        else if(password.equalsIgnoreCase("")){
+            appCompatEditTextPassword.setError(error_field);
+            Toast.makeText(LoginActivity.this,"Password is a required field", Toast.LENGTH_SHORT).show();
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher("").matches() && password.equalsIgnoreCase("")){
+            Toast.makeText(LoginActivity.this,"Email and Password are required fields",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            loginUser();
+        }
+
+    }
+
+    //method for logging user into the system
+    public void loginUser(){
+
         //initialization of the instance of the ProgressDialog
-        progressDialog = ProgressDialog.show(LoginActivity.this,"Logging In",null,true,true);
+        progressDialog = ProgressDialog.show(LoginActivity.this,"",null,true,true);
         progressDialog.setMessage("Please wait..."); //set a message on the progressDialog
 
         //progressDialog.setContentView(R.layout.material_design_progressdialog);
@@ -68,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(LoginActivity.this,"You have successfully logged in",Toast.LENGTH_SHORT).show();
         Intent intentLogin = new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intentLogin);
+
     }
 
     //method called when the link to the SignUp Activity is clicked or tapped

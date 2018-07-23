@@ -7,7 +7,7 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     style="?android:attr/spinnerDropDownItemStyle"
     android:ellipsize="marquee"
-    android:textColor="@color/materialDarkYellow"
+    android:textColor="@color/colorVioletDeep"
     android:maxLines="1"
     tools:ignore="EllipsizeMaxLines">
 
