@@ -60,8 +60,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
     //method to be called when the login Button is clicked or tapped
     public void onLoginButtonClick(View view){
 
@@ -171,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //method called when the link to the SignUp Activity is clicked or tapped
     public void onAdminLoginButtonLinkClick(View view){
         //starts the AdminLoginActivity
         startActivity(new Intent(LoginActivity.this,AdminLoginActivity.class));

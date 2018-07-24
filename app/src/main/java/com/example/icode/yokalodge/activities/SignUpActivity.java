@@ -35,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -97,12 +99,20 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+    //checks for a valid email
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     //method for the sign Up button
     public void onSignUpButtonClick(View view){
 
         //get the text from the EditText
         String email = appCompatEditTextEmail.getText().toString().trim();
+        isEmailValid(email);
         String password = appCompatEditTextPassword.getText().toString().trim();
         String confirm_password = appCompatEditTextConfirmPassword.getText().toString().trim();
         String mobile_number = appCompatEditTextMobileNumber.getText().toString().trim();
@@ -146,7 +156,6 @@ public class SignUpActivity extends AppCompatActivity {
             signUpUser();
         }
 
-        
     }
 
     //sign Up method
@@ -157,18 +166,19 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
 
         //get text from the EditText fields
-      /*  String email = appCompatEditTextEmail.getText().toString().trim();
+        String email = appCompatEditTextEmail.getText().toString().trim();
+        isEmailValid(email);
         String password = appCompatEditTextPassword.getText().toString().trim();
         String confirm_password = appCompatEditTextConfirmPassword.getText().toString().trim();
         String mobile_number = appCompatEditTextMobileNumber.getText().toString().trim();
-        String gender = appCompatSpinnerGender.getSelectedItem().toString().trim(); */
+        String gender = appCompatSpinnerGender.getSelectedItem().toString().trim();
 
         //get the values from the fields and sets them to that of the values in the database
-        users.setEmail_address(appCompatEditTextEmail.getText().toString().trim());
-        users.setPassword(appCompatEditTextPassword.getText().toString().trim());
-        users.setConfirm_password(appCompatEditTextConfirmPassword.getText().toString().trim());
-        users.setMobile_number(appCompatEditTextMobileNumber.getText().toString().trim());
-        users.setGender(appCompatSpinnerGender.getSelectedItem().toString().trim());
+        users.setEmail_address(email);
+        users.setPassword(password);
+        users.setConfirm_password(confirm_password);
+        users.setMobile_number(mobile_number);
+        users.setGender(gender);
 
         dbRef.child(users.getEmail_address()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
