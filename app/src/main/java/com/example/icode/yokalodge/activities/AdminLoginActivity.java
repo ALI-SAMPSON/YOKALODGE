@@ -61,6 +61,33 @@ public class AdminLoginActivity extends AppCompatActivity {
     //login button method for admin
     public void onLoginButtonClick(View view){
 
+        //string for error handling
+        String error_field = "This field cannot be left blank";
+        String password_length = "Password length cannot be less than 6";
+
+        //get text from the EditText fields
+        String username = editTextUsername.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        //checks if text entered are valid and textfields are not empty
+        if(username.equals("")){
+            editTextUsername.setError(error_field);
+            //Toast.makeText(LoginActivity.this,"Username is a required field",Toast.LENGTH_SHORT).show();
+        }
+        else if(password.equals("")){
+            editTextPassword.setError(error_field);
+            //Toast.makeText(LoginActivity.this,"Password is a required field", Toast.LENGTH_SHORT).show();
+        }
+        else if(password.length() < 6){
+            editTextPassword.setError(password_length);
+        }
+        else if(username.equals("") && password.equals("")){
+            Toast.makeText(AdminLoginActivity.this,"Email and Password are required fields",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            loginAdmin();
+        }
+
     }
 
     //method for logging Admin into the system
