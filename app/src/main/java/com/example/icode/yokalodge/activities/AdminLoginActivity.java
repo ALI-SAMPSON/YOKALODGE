@@ -14,8 +14,12 @@ import com.example.icode.yokalodge.R;
 import com.example.icode.yokalodge.models.Admin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,6 +54,8 @@ public class AdminLoginActivity extends AppCompatActivity {
         //get reference to the EditText fields defined in the xml file
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
+
+        admin = new Admin();
 
         //instantiation of the Database objects
         admindB = FirebaseDatabase.getInstance();
@@ -97,18 +103,46 @@ public class AdminLoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
 
         //getting input from the editText
-        String username = editTextUsername.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String username = editTextUsername.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
-        admin.setUser_name(username);
-        admin.setPassword(password);
-
-        adminRef.child(admin.getUsername()).setValue(admin).addOnCompleteListener(new OnCompleteListener<Void>() {
+        adminRef.child(username).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    //gets a snapshot of the data in the database
+                    Admin admin = dataSnapshot.getValue(Admin.class);
+                    //checks if password entered equals the one in the database
+                    if(password.equals(admin.getPassword())){
+                        final Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                timer.cancel();
+                            }
+                        },5000);
+                        clearBothTextFields(); //call to this method
+                        Toast.makeText(AdminLoginActivity.this,"You have successfully Logged In", Toast.LENGTH_LONG).show();
+                        //opens the admin DashBoard
+                        startActivity(new Intent(AdminLoginActivity.this,AdminDashBoardActivity.class));
+                    }
+                    //checks if password entered does not equal the one in the database
+                    else if(!password.equals(admin.getPassword())){
+                        final  Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                timer.cancel();
+                            }
+                        },5000);
+                        clearPasswordTextField();
+                        Toast.makeText(AdminLoginActivity.this,"Incorrect Username and Password", Toast.LENGTH_LONG).show();
 
-                    //runs the progress Dialog for a limited time frame and dismisses it
+                    }
+                }
+                else {
                     final Timer timer = new Timer();
                     timer.schedule(new TimerTask() {
                         @Override
@@ -117,22 +151,13 @@ public class AdminLoginActivity extends AppCompatActivity {
                             timer.cancel();
                         }
                     },5000);
-                    clearBothTextFields();
-                    Toast.makeText(AdminLoginActivity.this, "You have Logged In Successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminLoginActivity.this,"Admin does not exist in database...please try again later!", Toast.LENGTH_LONG).show();
                 }
-                else{
-                    //runs the progress Dialog for a limited time frame and dismisses it
-                    final Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                            timer.cancel();
-                        }
-                    },5000);
-                    clearBothTextFields();
-                    Toast.makeText(AdminLoginActivity.this,"Cannot connect to the database",Toast.LENGTH_LONG).show();
-                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(AdminLoginActivity.this,databaseError.toException().toString(),Toast.LENGTH_LONG).show();
             }
         });
 

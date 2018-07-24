@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }, 10000);
 
-                        clearBothTextFields(); ///call to this method
+                        clearBothTextFields(); //call to this method
                         Toast.makeText(LoginActivity.this, "You have successfully logged in", Toast.LENGTH_SHORT).show();
                         Intent intentLogin = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intentLogin);
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                             timer.cancel();
                         }
                     },5000);
-                    Toast.makeText(LoginActivity.this,"User does not exist",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"User does not exist in database",Toast.LENGTH_LONG).show();
                     clearBothTextFields();//call to this method
                 }
             }

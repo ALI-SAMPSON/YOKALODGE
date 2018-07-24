@@ -11,9 +11,9 @@ public class Admin {
     }
 
     //constructor with two or more parameters
-    public Admin(String user_name, String passsword){
+    public Admin(String user_name, String password){
         this.user_name = user_name;
-        this.password = passsword;
+        this.password = password;
     }
 
     //Getter and Setter method for Username
