@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.icode.yokalodge.R;
@@ -32,11 +33,9 @@ public class LoginActivity extends AppCompatActivity {
     private Users users;
 
     //Email and password EditText
-    private AppCompatEditText appCompatEditTextEmail;
-    private AppCompatEditText appCompatEditTextPassword;
+    private EditText editTextUsername;
+    private EditText editTextPassword;
 
-    //an instance of the Firebase Authentication class
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,39 +48,40 @@ public class LoginActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //instantiation of the FirebaseAuth instance
+        //instantiation of the Database objects
         dB = FirebaseDatabase.getInstance();
         dbRef = dB.getReference().child("Users");
 
-        appCompatEditTextEmail = findViewById(R.id.appCompatEditTextEmail);
-        appCompatEditTextPassword = findViewById(R.id.appCompatEditTextPassword);
-
+        //get reference to the EditText fields defined in the xml file
+        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
     }
-
 
     //method to be called when the login Button is clicked or tapped
     public void onLoginButtonClick(View view){
 
+        //string for error handling
         String error_field = "This field cannot be left blank";
+        String password_length = "Password length cannot be less than 6";
 
-        String email = appCompatEditTextEmail.getText().toString().trim();
-        String password = appCompatEditTextPassword.getText().toString().trim();
+        //get text from the EditText fields
+        String username = editTextUsername.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
         //checks if text entered are valid and textfields are not empty
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            appCompatEditTextEmail.setError("Invalid Email Address...Please enter a valid email address");
-            Toast.makeText(LoginActivity.this,"Invalid Email Address...Please enter a valid email address", Toast.LENGTH_SHORT).show();
+        if(username.equals("")){
+            editTextUsername.setError(error_field);
+            //Toast.makeText(LoginActivity.this,"Username is a required field",Toast.LENGTH_SHORT).show();
         }
-        else if(Patterns.EMAIL_ADDRESS.matcher("").matches()){
-            appCompatEditTextEmail.setError(error_field);
-            Toast.makeText(LoginActivity.this,"Email is a required field",Toast.LENGTH_SHORT).show();
+        else if(password.equals("")){
+            editTextPassword.setError(error_field);
+            //Toast.makeText(LoginActivity.this,"Password is a required field", Toast.LENGTH_SHORT).show();
         }
-        else if(password.equalsIgnoreCase("")){
-            appCompatEditTextPassword.setError(error_field);
-            Toast.makeText(LoginActivity.this,"Password is a required field", Toast.LENGTH_SHORT).show();
+        else if(password.length() < 6){
+            editTextPassword.setError(password_length);
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher("").matches() && password.equalsIgnoreCase("")){
+        else if(username.equals("") && password.equals("")){
             Toast.makeText(LoginActivity.this,"Email and Password are required fields",Toast.LENGTH_SHORT).show();
         }
         else{
@@ -94,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
     public void loginUser(){
 
         //get the text from the EditText
-        String email = appCompatEditTextEmail.getText().toString().trim();
-        final String password = appCompatEditTextPassword.getText().toString().trim();
+        final String username = editTextUsername.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
         //initialization of the instance of the ProgressDialog
         progressDialog = ProgressDialog.show(LoginActivity.this,"",null,true,true);
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         //progressDialog.setContentView(R.layout.material_design_progressdialog);
         //progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        dbRef.child(email).addValueEventListener(new ValueEventListener() {
+        dbRef.child(username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //gets a snapshot of the data in the database
@@ -121,11 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }, 10000);
 
+                        clearBothTextFields(); ///call to this method
                         Toast.makeText(LoginActivity.this, "You have successfully logged in", Toast.LENGTH_SHORT).show();
                         Intent intentLogin = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intentLogin);
                     }
-                    else{
+                    else if(!password.equals(users.getPassword())){
                         final Timer timer = new Timer();
                         timer.schedule(new TimerTask() {
                             @Override
@@ -133,9 +134,10 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 timer.cancel();
                             }
-                        },5000);
+                        },3000);
                     }
-                    Toast.makeText(LoginActivity.this,"Incorrect Email or Password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Incorrect Username or Password",Toast.LENGTH_LONG).show();
+                    clearPasswordTextField();//call to this method
                 }
                 else{
 
@@ -148,6 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     },5000);
                     Toast.makeText(LoginActivity.this,"User does not exist",Toast.LENGTH_LONG).show();
+                    clearBothTextFields();//call to this method
                 }
             }
 
@@ -173,6 +176,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onAdminLoginButtonLinkClick(View view){
         //starts the AdminLoginActivity
         startActivity(new Intent(LoginActivity.this,AdminLoginActivity.class));
+    }
+
+    // clears the Username and Password EditText
+    public void clearBothTextFields(){
+        editTextUsername.setText(null);
+        editTextPassword.setText(null);
+    }
+
+    public void clearPasswordTextField(){
+        editTextPassword.setText(null);
     }
 
 }

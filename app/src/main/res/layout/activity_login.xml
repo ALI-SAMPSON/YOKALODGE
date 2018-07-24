@@ -36,9 +36,9 @@
             android:typeface="normal"
             android:textColor="@color/colorWhite"/>
 
-        <!-- TextInputLayout and AppCompatEdiText for Email -->
+        <!-- TextInputLayout and AppCompatEdiText for Username -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayoutEmail"
+            android:id="@+id/textInputLayoutUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -46,18 +46,17 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:textAlignment="center"
-            android:textColorHint="@color/colorWhite"
-            app:passwordToggleEnabled="true">
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/appCompatEditTextEmail"
+            android:textColorHint="@color/colorWhite">
+            <EditText
+                android:id="@+id/editTextUsername"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableLeft="@drawable/ic_person_outline_black_24dp"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
+                android:hint="@string/hint_username"
+                android:inputType="text"
                 android:maxLines="1"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -74,8 +73,8 @@
             android:textColorHint="@color/colorWhite"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorWhite">
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/appCompatEditTextPassword"
+            <EditText
+                android:id="@+id/editTextPassword"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -83,11 +82,10 @@
                 android:textColorHint="@color/colorWhite"
                 android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
                 android:hint="@string/hint_password"
-                android:inputType="text|numberPassword"
+                android:inputType="textPassword"
                 android:maxLines="1"/>
 
         </android.support.design.widget.TextInputLayout>
-
 
     <!-- Login Button  -->
     <android.support.v7.widget.AppCompatButton

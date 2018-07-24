@@ -8,6 +8,6 @@
     <!-- Custom Dimensions -->
     <dimen name="activity_left_margin">8dp</dimen>
     <dimen name="activity_right_margin">8dp</dimen>
-    <dimen name="round_corner_radius">15dp</dimen>
+    <dimen name="round_corner_radius">18dp</dimen>
     
 </resources>

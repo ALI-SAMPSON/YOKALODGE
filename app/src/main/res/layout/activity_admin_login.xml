@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_gravity="center"
             android:src="@mipmap/admin_icon_background"/>
 
@@ -27,33 +27,32 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/login_cardView"
-        android:layout_width="290dp"
-        android:layout_height="290dp"
+        android:layout_width="280dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true"
         app:cardBackgroundColor="@color/white_greyish"
         app:cardCornerRadius="@dimen/round_corner_radius"
         app:cardElevation="@dimen/activity_horizontal_margin">
 
-        <!-- TextInputLayout and AppCompatEdiText for Email -->
+        <!-- TextInputLayout and AppCompatEdiText for Username -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayoutEmail"
+            android:id="@+id/textInputLayoutUsername"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:textAlignment="center"
-            android:textColorHint="@color/colorDeepPurple"
-            app:passwordToggleEnabled="true">
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/appCompatEditTextEmail"
+            android:textColorHint="@color/colorDeepPurple">
+            <EditText
+                android:id="@+id/editTextUsername"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_person_outline_black_24dp_1"
                 android:textColor="@color/colorBlue"
                 android:textColorHint="@color/colorDeepPurple"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
+                android:hint="@string/hint_username"
+                android:inputType="text"
                 android:maxLines="1"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -62,21 +61,22 @@
             android:id="@+id/textInputLayoutPassword"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="90dp"
             android:orientation="vertical"
             android:textAlignment="center"
             android:textColorHint="@color/colorDeepPurple"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorVioletDeep">
-            <android.support.v7.widget.AppCompatEditText
+            <EditText
+                android:id="@+id/editTextPassword"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlue"
                 android:textColorHint="@color/colorDeepPurple"
                 android:drawableLeft="@drawable/ic_lock_outline_black_24dp_1"
                 android:hint="@string/hint_password"
-                android:inputType="text|numberPassword"
+                android:inputType="textPassword"
                 android:maxLines="1"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -87,7 +87,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/appCompatButtonLogin"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -96,7 +96,7 @@
         android:text="@string/login"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
-        android:textStyle="italic"
+        android:textStyle="normal"
         android:textAlignment="center"
         android:background="@drawable/round_corner_button_login"
         android:onClick="onLoginButtonClick"/>
@@ -114,7 +114,7 @@
     android:textColor="@color/materialGreen"
     android:textSize="16sp"
     android:textAllCaps="false"
-    android:textStyle="bold"
+    android:textStyle="normal"
     android:textAlignment="center"
     android:background="@null"
     android:onClick="onLoginButtonLinkClick"/>
