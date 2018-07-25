@@ -10,6 +10,18 @@
     <string name="hint_tel">Mob. Number</string>
     <string name="hint_username">Username</string>
     <string name="text_gender">Gender</string>
+    <string name="add_rooms">Add Rooms</string>
+    <string name="add_rooms_sub_text">add rooms available to the system</string>
+    <string name="delete_rooms">Delete Rooms</string>
+    <string name="delete_rooms_sub_text">delete rooms which are not needed</string>
+    <string name="edit_credentials">Edit Credentials</string>
+    <string name="edit_credentials_sub_text">lets edit your credentials if necessary</string>
+    <string name="check_payment_info">Check Payment Info</string>
+    <string name="check_payment_sub_text">check payments made by users</string>
+    <string name="logout">Logout</string>
+    <string name="logout_sub_text">done? lets exit the system</string>
+    <string name="admin_dash_board">ADMIN DASHBOARD</string>
+
     <string name="welcome">Welcome Back to Yoka Lodge!</string>
     <string name="welcome_msg">Hope you enjoy the stay</string>
     <string name="sign_up_link">Not yet a user? Sign Up</string>
