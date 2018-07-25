@@ -21,6 +21,17 @@
     <string name="logout">Logout</string>
     <string name="logout_sub_text">done? lets exit the system</string>
     <string name="admin_dash_board">ADMIN DASHBOARD</string>
+    <string name="about_us_title">About Us-</string>
+    <string name="about_us_sub_title">YOKA LOGDE is a mobile application specification android,
+        developed by iCODE Labs to help this guest house keep with its management.
+        iCODE Labs was established in the year 2017 to undertake the development
+        of mobile application for institutions or societies in need. It consists of
+        professional android developers from campuses across the country. Below is our contact information:
+        Mob.+233245134112/+233209062445
+        Email: alisampson2@gmail.com
+        Location: located at Amamorley-Canada near the Anyaa-Pokuase Street.
+        Thank you for using this application.
+    </string>
 
     <string name="welcome">Welcome Back to Yoka Lodge!</string>
     <string name="welcome_msg">Hope you enjoy the stay</string>

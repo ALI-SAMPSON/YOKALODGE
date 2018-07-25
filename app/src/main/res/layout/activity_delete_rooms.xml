@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.DeleteRoomsActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:fitsSystemWindows="true"
+        android:elevation="4dp"
+        android:minHeight="?android:attr/actionBarSize">
+
+    </android.support.v7.widget.Toolbar>
+
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/about_us_background"
+    tools:context=".activities.AboutUsAdminActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="4dp">
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/about_us_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:padding="30dp"
+            android:layout_gravity="center"
+            android:text="@string/about_us_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/green"/>
+
+        <TextView
+            android:layout_marginTop="60dp"
+            android:id="@+id/about_us_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="52dp"
+            android:layout_gravity="center"
+            android:text="@string/about_us_sub_title"
+            android:textSize="20sp"
+            android:textColor="@color/green"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.example.icode.yokalodge.R;
 
-public class EditCredentialsActivity extends AppCompatActivity {
+public class AboutUsAdminActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_credentials);
+        setContentView(R.layout.activity_about_us_admin);
     }
 }
