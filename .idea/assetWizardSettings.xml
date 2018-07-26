@@ -18,9 +18,9 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundImage" value="C:\Users\iCODE\Desktop\app_icon_1.jpg" />
-                                      <entry key="foregroundImage" value="C:\Users\iCODE\Desktop\app_icon_1.jpg" />
-                                      <entry key="outputName" value="app_icon_1" />
+                                      <entry key="backgroundImage" value="C:\Users\iCODE\Desktop\profile_icon.jpg" />
+                                      <entry key="foregroundImage" value="C:\Users\iCODE\Desktop\profile_icon.jpg" />
+                                      <entry key="outputName" value="profile_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -62,7 +62,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_payment_black_24dp" />
+                            <entry key="outputName" value="ic_payment_drawable_left_24dp" />
                             <entry key="sourceFile" value="C:\Users\iCODE" />
                           </map>
                         </option>

@@ -26,7 +26,8 @@
         <activity android:name=".activities.EditCredentialsActivity" />
         <activity android:name=".activities.CheckPaymentInfoActivity" />
         <activity android:name=".activities.AboutUsUserActivity" />
-        <activity android:name=".activities.AboutUsAdminActivity"></activity>
+        <activity android:name=".activities.AboutUsAdminActivity" />
+        <activity android:name=".activities.ViewAddedRoomsActivity"></activity>
     </application>
 
 </manifest>

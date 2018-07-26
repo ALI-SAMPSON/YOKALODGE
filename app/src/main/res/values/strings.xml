@@ -18,7 +18,7 @@
     <string name="edit_credentials_sub_text">lets edit your credentials if necessary</string>
     <string name="check_payment_info">Check Payment Info</string>
     <string name="check_payment_sub_text">check payments made by users</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Signout</string>
     <string name="logout_sub_text">done? lets exit the system</string>
     <string name="admin_dash_board">ADMIN DASHBOARD</string>
     <string name="about_us_title">About Us-</string>
@@ -33,6 +33,14 @@
         Thank you for using this application.
     </string>
 
+    <string name="update_credentials">UPDATE CREDENTIALS</string>
+    <string name="room_number">Room Number</string>
+    <string name="add_rooms_title">Add Available Rooms to the System</string>
+    <string name="delete_rooms_title">Delete a Room from the System</string>
+    <string name="text_add">Add Room</string>
+    <string name="text_delete">Delete Room</string>
+    <string name="price">Price</string>
+    <string name="room_image">Room Image:</string>
     <string name="welcome">Welcome Back to Yoka Lodge!</string>
     <string name="welcome_msg">Hope you enjoy the stay</string>
     <string name="sign_up_link">Not yet a user? Sign Up</string>

@@ -57,11 +57,11 @@ public class AdminDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //starts the delete rooms activity
-                startActivity(new Intent(AdminDashBoardActivity.this,DeleteRoomsActivity.class));
+                startActivity(new Intent(AdminDashBoardActivity.this,ViewAddedRoomsActivity.class));
             }
         });
 
-        //onclickListener for carView2
+        //onclickListener for carView3
         cardView3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -70,6 +70,7 @@ public class AdminDashBoardActivity extends AppCompatActivity {
             }
         });
 
+        //onclickListener for carView4
         cardView4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -77,12 +78,13 @@ public class AdminDashBoardActivity extends AppCompatActivity {
             }
         });
 
+        //onclickListener for carView5
         cardView5.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 //alert Dialog to alert the admin of logging out of the system
                 AlertDialog.Builder builder = new AlertDialog.Builder(AdminDashBoardActivity.this);
-                builder.setTitle("Logout");
+                builder.setTitle("Signout");
                 builder.setMessage("Are you sure you want to exit the system");
 
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -110,6 +112,7 @@ public class AdminDashBoardActivity extends AppCompatActivity {
                     }
                 });
 
+                //create a new alert Dialog and displays it
                 AlertDialog alert = builder.create();
                 alert.show();
 

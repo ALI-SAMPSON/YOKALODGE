@@ -157,7 +157,6 @@ public class SignUpActivity extends AppCompatActivity {
             //Toast.makeText(SignUpActivity.this, "Mobile Number is a required field",Toast.LENGTH_SHORT).show();
         }
         else{
-            //appCompatButton.setEnabled(true);
             signUpUser();
         }
 
@@ -172,7 +171,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         //get text from the EditText fields
         String username = editTextUsername.getText().toString().trim();
-        //isEmailValid(email);
         String password = editTextPassword.getText().toString().trim();
         String confirm_password = editTextConfirmPassword.getText().toString().trim();
         String mobile_number = editTextMobileNumber.getText().toString().trim();
