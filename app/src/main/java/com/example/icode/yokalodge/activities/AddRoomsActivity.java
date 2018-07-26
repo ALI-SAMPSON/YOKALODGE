@@ -83,8 +83,6 @@ public class AddRoomsActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance().getReference();
 
-        //storage = FirebaseStorage.getInstance().getReference();
-
     }
 
     //method to handle the select image from gallery when user click the image Button

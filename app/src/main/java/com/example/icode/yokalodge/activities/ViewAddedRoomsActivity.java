@@ -1,6 +1,7 @@
 package com.example.icode.yokalodge.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import com.example.icode.yokalodge.R;
 import com.example.icode.yokalodge.models.Rooms;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -86,7 +90,7 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
             @Override
             protected void populateView(View v, Object model, int position) {
 
-                //TextView to populate the data
+                //TextView and imageView to populate the data from the database
                 TextView room_number = v.findViewById(R.id.room_number);
                 TextView price = v.findViewById(R.id.price);
                 ImageView imageView = v.findViewById(R.id.room_image);
@@ -96,9 +100,10 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
 
                 //setting the text from the database to the TextViews
                 room_number.setText(" Room Number: " + rooms.getRoom_number().toString());
-                price.setText(" Price : GHS " + rooms.getPrice().toString());
-               // imageView.setImageResource(rooms.getRoom_image());
+                price.setText(" Price: GHS " + rooms.getPrice().toString());
+                Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(imageView);
 
+                //Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(imageView);
 
             }
         };
