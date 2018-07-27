@@ -33,6 +33,7 @@
         Thank you for using this application.
     </string>
 
+    <string name="make_payment">MAKE PAYMENT</string>
     <string name="update_credentials">UPDATE CREDENTIALS</string>
     <string name="update_text">UPDATE</string>
     <string name="room_number">Room Number</string>

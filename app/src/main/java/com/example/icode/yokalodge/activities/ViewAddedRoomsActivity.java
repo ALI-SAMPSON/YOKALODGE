@@ -71,22 +71,22 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
         //roomdB = FirebaseDatabase.getInstance();
         //roomRef = roomdB.getReference().child("Rooms");
 
-        //arrayList = new ArrayList<>();
-        //arrayAdapter = new ArrayAdapter<>(this,R.layout.room_list_item,R.id.room_number,);
-
         viewRooms();
     }
 
-    //methods for getting available rooms from db
+    //methods for getting available rooms from db and populating on the listView
     public void viewRooms(){
 
+        //creating and initializing query from the database
         Query query = FirebaseDatabase.getInstance().getReference().child("Rooms");
 
+        //listOptions to get the query and layout resource file to populate the data
         FirebaseListOptions<Rooms> options = new FirebaseListOptions.Builder<Rooms>()
                 .setLayout(R.layout.room_list_item)
                 .setQuery(query,Rooms.class)
                 .build();
 
+        //list adapter to populate the various views with their respective mapped data from the database
         firebaseListAdapter = new FirebaseListAdapter(options) {
             @Override
             protected void populateView(View v, Object model, int position) {
@@ -102,6 +102,7 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
                 //setting the text from the database to the TextViews
                 room_number.setText(" Room Number: " + rooms.getRoom_number().toString());
                 price.setText(" Price: GHS " + rooms.getPrice().toString());
+                //picasso library to load the image into the imageView
                 Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(imageView);
 
                 //Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(imageView);
@@ -115,9 +116,9 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Rooms rooms = (Rooms) adapterView.getItemAtPosition(i);
                 //starts the deleteRoomsActivity
                 Intent intentDelete = new Intent(ViewAddedRoomsActivity.this,DeleteRoomsActivity.class);
-                Rooms rooms = (Rooms) adapterView.getItemAtPosition(i);
                 intentDelete.putExtra("room_number",rooms.getRoom_number());
                 intentDelete.putExtra("price",rooms.getPrice());
                 intentDelete.putExtra("room_image", rooms.getRoom_image());

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AdminDashBoardActivity">
+        <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
         <activity android:name=".activities.SplashScreenActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.AdminDashBoardActivity" />
         <activity android:name=".activities.AdminLoginActivity" />
         <activity android:name=".activities.AddRoomsActivity" />
         <activity android:name=".activities.DeleteRoomsActivity" />
@@ -27,7 +27,8 @@
         <activity android:name=".activities.CheckPaymentInfoActivity" />
         <activity android:name=".activities.AboutUsUserActivity" />
         <activity android:name=".activities.AboutUsAdminActivity" />
-        <activity android:name=".activities.ViewAddedRoomsActivity"></activity>
+        <activity android:name=".activities.ViewAddedRoomsActivity" />
+        <activity android:name=".activities.MakePaymentActivity"></activity>
     </application>
 
 </manifest>
