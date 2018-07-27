@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -109,6 +110,21 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
         };
 
         listView.setAdapter(firebaseListAdapter);
+
+        //onclick listener for listView , listening for event
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //starts the deleteRoomsActivity
+                Intent intentDelete = new Intent(ViewAddedRoomsActivity.this,DeleteRoomsActivity.class);
+                Rooms rooms = (Rooms) adapterView.getItemAtPosition(i);
+                intentDelete.putExtra("room_number",rooms.getRoom_number());
+                intentDelete.putExtra("price",rooms.getPrice());
+                intentDelete.putExtra("room_image", rooms.getRoom_image());
+                intentDelete.putExtra("key", rooms.getRoom_number());
+                startActivity(intentDelete);
+            }
+        });
     }
 
     @Override

@@ -36,6 +36,18 @@
             android:typeface="serif"
             android:textColor="@color/green"/>
 
+        <TextView
+            android:id="@+id/key"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textColor="@color/green"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -54,19 +66,18 @@
                 android:layout_marginTop="4dp"/>
 
             <!--ImageButton to select candidate Picture from gallery-->
-            <ImageButton
-                android:id="@+id/imageBtn"
+            <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="25dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
-                android:background="@mipmap/gallery_icon_round"
+                android:background="@mipmap/profile_icon_round"
                 android:layout_weight="0"
                 android:minHeight="130dp"
                 android:minWidth="130dp"
-                android:onClick="onSelectImage"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"/>
         </RelativeLayout>
@@ -92,8 +103,12 @@
                 android:textColor="@color/green"
                 android:textColorHint="@color/green"
                 android:hint="@string/room_number"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:inputType=""
+                android:maxLines="1"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- TextInputLayout and AppCompatEdiText for Price -->
@@ -117,14 +132,18 @@
                 android:textColorHint="@color/green"
                 android:drawableLeft="@drawable/ic_payment_drawable_left_24dp"
                 android:hint="@string/price"
-                android:inputType="numberDecimal"
-                android:maxLines="1"/>
+                android:inputType=""
+                android:maxLines="1"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Login Button  -->
+        <!-- Delete Room Button  -->
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/appCompatButtonLogin"
+            android:id="@+id/appCompatButtonDelete"
             android:layout_marginTop="50dp"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
@@ -137,7 +156,8 @@
             android:textStyle="normal"
             android:textAlignment="center"
             android:background="@drawable/round_corner_button_login"
-            android:onClick="onAddRoomButtonClick"/>
+            android:onClick="onDeleteRoomButtonClick"
+            tools:ignore="OnClick" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 

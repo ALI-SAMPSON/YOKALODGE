@@ -7,6 +7,7 @@ public class Rooms {
     private String room_number;
     private String price;
 
+    //default constructor
     public Rooms(){}
 
     //constructor with two or more parameters

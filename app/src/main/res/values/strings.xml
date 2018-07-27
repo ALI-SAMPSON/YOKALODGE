@@ -34,6 +34,7 @@
     </string>
 
     <string name="update_credentials">UPDATE CREDENTIALS</string>
+    <string name="update_text">UPDATE</string>
     <string name="room_number">Room Number</string>
     <string name="add_rooms_title">Add Available Rooms to the System</string>
     <string name="delete_rooms_title">Delete a Room from the System</string>
