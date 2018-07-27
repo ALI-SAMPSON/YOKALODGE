@@ -6,6 +6,7 @@ public class Payments {
     private String user_name;
     private String room_number;
     private String price;
+    private String payment_method;
     private String mobile_number;
 
 
@@ -43,6 +44,14 @@ public class Payments {
     }
     public String getPrice(){
         return price;
+    }
+
+    //Getter and Setter method for Payment method
+    public void setPayment_method(String payment_method) {
+        this.payment_method = payment_method;
+    }
+    public String getPayment_method() {
+        return payment_method;
     }
 
     //Getter and Setter method for mobile number

@@ -2,6 +2,10 @@ package com.example.icode.yokalodge.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextPassword;
 
+    NestedScrollView nestedScrollView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,29 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
 
+        nestedScrollView = findViewById(R.id.nestedScrollView);
+
+    }
+
+    //checks for the availability of network on the device
+    public boolean isNetworkAvailable(){
+        boolean have_WIFI = false;
+        boolean have_MobileDate = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+
+        for(NetworkInfo info : networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI")){
+                if(info.isConnected()){
+                    have_WIFI = true;
+                }
+            }
+            if(info.getTypeName().equalsIgnoreCase("MOBILE")){
+                have_MobileDate = true;
+            }
+        }
+        return have_MobileDate || have_WIFI;
     }
 
     //method to be called when the login Button is clicked or tapped
@@ -93,75 +122,86 @@ public class LoginActivity extends AppCompatActivity {
     //method for logging user into the system
     public void loginUser(){
 
-        //get the text from the EditText
-        final String username = editTextUsername.getText().toString().trim();
-        final String password = editTextPassword.getText().toString().trim();
+        if(isNetworkAvailable()){
+            //get the text from the EditText
+            final String username = editTextUsername.getText().toString().trim();
+            final String password = editTextPassword.getText().toString().trim();
 
-        //initialization of the instance of the ProgressDialog
-        progressDialog = ProgressDialog.show(LoginActivity.this,"",null,true,true);
-        progressDialog.setMessage("Please wait..."); //set a message on the progressDialog
+            //initialization of the instance of the ProgressDialog
+            progressDialog = ProgressDialog.show(LoginActivity.this,"",null,true,true);
+            progressDialog.setMessage("Please wait..."); //set a message on the progressDialog
 
-        //progressDialog.setContentView(R.layout.material_design_progressdialog);
-        //progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            //progressDialog.setContentView(R.layout.material_design_progressdialog);
+            //progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        dbRef.child(username).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //gets a snapshot of the data in the database
-                if(dataSnapshot.exists()) {
-                    Users users = dataSnapshot.getValue(Users.class);
-                    //checks if password entered equals the one in the database
-                    if(password.equals(users.getPassword())){
-                        final Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                timer.cancel();
-                            }
-                        }, 10000);
+            dbRef.child(username).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //gets a snapshot of the data in the database
+                    if(dataSnapshot.exists()) {
+                        Users users = dataSnapshot.getValue(Users.class);
+                        //checks if password entered equals the one in the database
+                        if(password.equals(users.getPassword())){
+                            final Timer timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    progressDialog.dismiss();
+                                    timer.cancel();
+                                }
+                            }, 10000);
 
-                        clearBothTextFields(); //call to this method
-                        Toast.makeText(LoginActivity.this, "You have successfully logged in", Toast.LENGTH_SHORT).show();
-                        Intent intentLogin = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intentLogin);
-                    }
-                    else if(!password.equals(users.getPassword())){
-                        final Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                timer.cancel();
-                            }
-                        },3000);
-                    }
-                    Toast.makeText(LoginActivity.this,"Incorrect Username or Password",Toast.LENGTH_LONG).show();
-                    clearPasswordTextField();//call to this method
-                }
-                else{
-
-                    final Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                            timer.cancel();
+                            clearBothTextFields(); //call to this method
+                            Toast.makeText(LoginActivity.this, "You have successfully logged in", Toast.LENGTH_SHORT).show();
+                            Intent intentLogin = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intentLogin);
                         }
-                    },5000);
-                    Toast.makeText(LoginActivity.this,"User does not exist in database",Toast.LENGTH_LONG).show();
-                    clearBothTextFields();//call to this method
+                        else if(!password.equals(users.getPassword())){
+                            final Timer timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    progressDialog.dismiss();
+                                    timer.cancel();
+                                }
+                            },3000);
+                            Toast.makeText(LoginActivity.this,"Incorrect Username or Password",Toast.LENGTH_LONG).show();
+                            clearPasswordTextField();//call to this method
+                        }
+                    }
+                    else{
+
+                        final Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                timer.cancel();
+                            }
+                        },5000);
+                        Toast.makeText(LoginActivity.this,"User does not exist in database",Toast.LENGTH_LONG).show();
+                        clearBothTextFields();//call to this method
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(LoginActivity.this, databaseError.toException().toString(),Toast.LENGTH_LONG).show();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(LoginActivity.this, databaseError.toException().toString(),Toast.LENGTH_LONG).show();
 
-            }
-        });
-
-
+                }
+            });
+        }
+        else if(!isNetworkAvailable()){
+            final Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                    timer.cancel();
+                }
+            },2000);
+            Snackbar.make(nestedScrollView,"No Internet",Snackbar.LENGTH_INDEFINITE).show();
+        }
 
     }
 

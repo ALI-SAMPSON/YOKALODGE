@@ -1,17 +1,24 @@
 package com.example.icode.yokalodge.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.icode.yokalodge.R;
 import com.example.icode.yokalodge.models.Rooms;
@@ -22,6 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,6 +45,11 @@ public class HomeActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
+    RelativeLayout relativeLayout;
+
+    //textView to alert the user of not connected to the internet
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,18 +60,57 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("HOME");
 
         //checks if the actionBar is not equal to null and set the Home button on
-        if(getSupportActionBar() != null){
+        /*if(getSupportActionBar() != null){
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        }*/
 
         listView = findViewById(R.id.home_listView);
+
+        relativeLayout = findViewById(R.id.relativeLayout);
+
+        textView = findViewById(R.id.internet_textView);
 
         rooms = new Rooms();
 
         populateRooms();
 
+       checkConnection();
+
     }
+
+    //checks if network is available and make the listView Visible
+    public void checkConnection(){
+        if(isNetworkAvailable()){
+            listView.setVisibility(View.VISIBLE);
+        }
+        else if(!isNetworkAvailable()){
+            textView.setText("No Internet...Try Again!");
+            Snackbar.make(relativeLayout,"No Internet...Try Again!",Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    //checks for the availability of network on the device
+    public boolean isNetworkAvailable(){
+        boolean have_WIFI = false;
+        boolean have_MobileDate = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+
+        for(NetworkInfo info : networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI")){
+                if(info.isConnected()){
+                    have_WIFI = true;
+                }
+            }
+            if(info.getTypeName().equalsIgnoreCase("MOBILE")){
+                have_MobileDate = true;
+            }
+        }
+        return have_MobileDate || have_WIFI;
+    }
+
 
     //methods for getting available rooms from db and populating on the listView
     public void populateRooms(){
@@ -112,6 +166,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -139,18 +194,25 @@ public class HomeActivity extends AppCompatActivity {
                 break;
                 //logs user out of the system
             case R.id.sign_out:
+                //checks if network is available before signing user out
+                if(isNetworkAvailable()){
+                    progressDialog = ProgressDialog.show(HomeActivity.this,"",null,true,true);
+                    progressDialog.setMessage("Please wait...");
+                    final Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                            timer.cancel();
+                        }
+                    },15000);
+                    //HomeActivity.this.finish();
+                    startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+                }
+                else if(!isNetworkAvailable()){
+                    Snackbar.make(relativeLayout,"No Internet...Please connect to a reliable network to Sign Out",Snackbar.LENGTH_INDEFINITE).show();
+                }
 
-                progressDialog = ProgressDialog.show(HomeActivity.this,"",null,true,true);
-                progressDialog.setMessage("Please wait...");
-                final Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        progressDialog.dismiss();
-                        timer.cancel();
-                    }
-                },10000);
-                startActivity(new Intent(HomeActivity.this,LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

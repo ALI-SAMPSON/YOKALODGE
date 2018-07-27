@@ -38,7 +38,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 try {
                     sleep(SPLASH_SCREEN_DISPLAY_TIME);
                     //Creates and start the intent of the next activity
-                    Intent intent = new Intent(SplashScreenActivity.this,LoginActivity.class);
+                    Intent intent = new Intent(SplashScreenActivity.this,SliderViewActivity.class);
                     startActivity(intent); //starts the instance of the Intent Class
                     finish(); //this prevents the app from going back to the splash screen
                     super.run();

@@ -19,8 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundImage" value="C:\Users\iCODE\Desktop\profile_icon.jpg" />
-                                      <entry key="foregroundImage" value="C:\Users\iCODE\Desktop\profile_icon.jpg" />
-                                      <entry key="outputName" value="profile_icon" />
+                                      <entry key="foregroundImage" value="C:\Users\iCODE\Desktop\logo.jpg" />
+                                      <entry key="outputName" value="logo" />
                                     </map>
                                   </option>
                                 </PersistentState>
