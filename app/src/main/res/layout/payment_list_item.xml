@@ -23,15 +23,17 @@
              app:placeholder_res="@mipmap/candidate_image"
              app:show_progress="true"/> -->
 
+        <!-- Text View for Username-->
         <TextView
             android:id="@+id/user_name"
             android:textSize="18sp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <!-- Text View for Room Number-->
         <TextView
             android:layout_below="@+id/user_name"
             android:id="@+id/room_number"
@@ -42,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-
+        <!-- Text View for price-->
         <TextView
             android:layout_below="@+id/room_number"
             android:id="@+id/price"
@@ -53,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-
+        <!-- Text View for mobile number-->
         <TextView
             android:layout_below="@+id/price"
             android:id="@+id/mobile_number"
