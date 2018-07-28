@@ -86,7 +86,7 @@ public class CheckPaymentInfoActivity extends AppCompatActivity {
 
                 //setting the Text of the various textViews to the payment info in the database;
                 username.setText(" Username: " + payments.getUser_name().toString());
-                room_number.setText(" Payment: " + payments.getRoom_number().toString());
+                room_number.setText(" Room Number: " + payments.getRoom_number().toString());
                 price.setText(" Price: " + payments.getPrice().toString());
                 mobile_number.setText(" Mobile Number: " + payments.getMobile_number().toString());
 

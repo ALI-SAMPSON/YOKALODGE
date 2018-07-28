@@ -202,6 +202,7 @@ public class MakePaymentActivity extends AppCompatActivity {
                         //clearBothTextFields(); //call to this method
                         Snackbar.make(relativeLayout, " Room is already booked by " + payments.getUser_name(), Snackbar.LENGTH_LONG).show();
                     }
+                }
 
                 //else if room is not booked then allow payment to be made
                     else{
@@ -253,7 +254,7 @@ public class MakePaymentActivity extends AppCompatActivity {
                         }
                     });
                   }
-                }
+
             }
 
             @Override
