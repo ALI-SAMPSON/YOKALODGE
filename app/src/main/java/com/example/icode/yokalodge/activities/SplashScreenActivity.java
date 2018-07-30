@@ -11,7 +11,7 @@ import com.example.icode.yokalodge.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN_DISPLAY_TIME = 5000;
+    private static int SPLASH_SCREEN_DISPLAY_TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

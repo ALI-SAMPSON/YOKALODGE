@@ -31,7 +31,7 @@ public class SliderAdapter extends PagerAdapter {
     public String[] slide_headings = {
             "BOOK A ROOM",
             "MAKE PAYMENT",
-            "LET'S START"
+            "VOILA! YOU ARE GOOD TO GO"
     };
 
 
@@ -39,7 +39,7 @@ public class SliderAdapter extends PagerAdapter {
     public String[] slide_desc = {
             "You can book a room irrespective of your location!",
                     "Make secure payments with through your mobile money wallet!",
-            "Click to proceed!"
+            "Let's Get Started!"
     };
 
     @Override
