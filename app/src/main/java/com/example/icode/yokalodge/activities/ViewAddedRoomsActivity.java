@@ -56,7 +56,7 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_added_rooms);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("DELETE ROOMS");
+        getSupportActionBar().setTitle("VIEW AND DELETE ROOMS");
 
         if(getSupportActionBar() != null){
             getSupportActionBar().setHomeButtonEnabled(true);

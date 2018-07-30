@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.icode.yokalodge.R;
 import com.example.icode.yokalodge.models.Admin;
+import com.example.icode.yokalodge.models.CurrentAdmin;
+import com.example.icode.yokalodge.models.CurrentUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -32,9 +34,14 @@ public class AdminLoginActivity extends AppCompatActivity {
     //instance of the Admin class
     private Admin admin;
 
+    private CurrentAdmin currentAdmin;
+
     //database objects
     private FirebaseDatabase admindB;
     private DatabaseReference adminRef;
+
+    private FirebaseDatabase currentAdmindB;
+    private DatabaseReference currentAdminRef;
 
     //an instance of the ProgressDialog Class
     private ProgressDialog progressDialog;
@@ -57,9 +64,14 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         admin = new Admin();
 
+        currentAdmin = new CurrentAdmin();
+
         //instantiation of the Database objects
         admindB = FirebaseDatabase.getInstance();
         adminRef = admindB.getReference().child("Admin");
+
+        currentAdmindB = FirebaseDatabase.getInstance();
+        currentAdminRef = currentAdmindB.getReference().child("CurrentAdmin");
 
 
     }
@@ -124,8 +136,27 @@ public class AdminLoginActivity extends AppCompatActivity {
                         },5000);
                         clearBothTextFields(); //call to this method
                         Toast.makeText(AdminLoginActivity.this,"You have successfully Logged In", Toast.LENGTH_LONG).show();
+                        //sets the current logged in admin details to the current Admin
+
+
+                        currentAdmin.setCurrent_user_name(username);
+                        currentAdmin.setCurrent_password(password);
+
+                        //add the current logged in admin to the CurrentAdmin table
+                        currentAdminRef.child(currentAdmin.getCurrent_user_name()).setValue(currentAdmin);
+
+                            /*    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+
+                                }
+                            }
+                        });*/
+
                         //opens the admin DashBoard
                         startActivity(new Intent(AdminLoginActivity.this,AdminDashBoardActivity.class));
+
                     }
                     //checks if password entered does not equal the one in the database
                     else if(!password.equals(admin.getPassword())){
@@ -139,7 +170,9 @@ public class AdminLoginActivity extends AppCompatActivity {
                         },5000);
                         clearPasswordTextField();
                         Toast.makeText(AdminLoginActivity.this,"Incorrect Username and Password", Toast.LENGTH_LONG).show();
-
+                        //sets the current logged in admin details to null
+                        currentAdmin.setCurrent_user_name(null);
+                        currentAdmin.setCurrent_password(null);
                     }
                 }
                 else {

@@ -10,6 +10,9 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.example.icode.yokalodge.R;
+import com.example.icode.yokalodge.models.CurrentAdmin;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +28,10 @@ public class AdminDashBoardActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    private CurrentAdmin currentAdmin;
+
+    private DatabaseReference currentAdminRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +44,12 @@ public class AdminDashBoardActivity extends AppCompatActivity {
         cardView4 = findViewById(R.id.cardView4);
         cardView5 = findViewById(R.id.cardView5);
 
-        cardViewMethod();
+        //instantiation of the class
+        currentAdmin = new CurrentAdmin();
+
+        currentAdminRef = FirebaseDatabase.getInstance().getReference().child("CurrentAdmin");
+
+        cardViewMethod();//call to the method
 
     }
 
@@ -100,6 +112,8 @@ public class AdminDashBoardActivity extends AppCompatActivity {
                                 timer.cancel();
                             }
                         },10000);
+                        //removes the field when user logs out
+                        currentAdminRef.removeValue();
                         //logs Admin out of the system and navigate him back to the Login Page
                         startActivity(new Intent(AdminDashBoardActivity.this, AdminLoginActivity.class));
                     }
