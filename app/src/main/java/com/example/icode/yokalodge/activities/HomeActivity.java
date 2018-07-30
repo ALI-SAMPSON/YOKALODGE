@@ -58,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("HOME");
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
 
         //checks if the actionBar is not equal to null and set the Home button on
         /*if(getSupportActionBar() != null){
