@@ -3,50 +3,39 @@ package com.example.icode.yokalodge.models;
 public class Users {
 
     //class variables to be used as fields for the database
-    private String user_name;
-    private String password;
+    private String email;
+    private String username;
     private String gender;
     private String mobile_number;
-   // private String payment_method;
-    private String confirm_password;
 
     //default constructor
     public Users(){
     }
 
     //constructor with two or more parameters
-    public Users(String user_name, String password, String confirm_password, String gender, String mobile_number){
-        this.user_name = user_name;
-        this.password = password;
-        this.confirm_password = confirm_password;
+    public Users(String email, String username, String gender, String mobile_number){
+        this.email = email;
+        this.username = username;
         this.gender = gender;
         this.mobile_number = mobile_number;
 
     }
 
     //Getter and Setter method for Username
-    public void setUser_name(String user_name){
-        this.user_name = user_name;
+    public void setEmail(String email){
+        this.email= email;
     }
 
-    public String getUser_name(){
-        return user_name;
+    public String getEmail(){
+        return email;
     }
 
-    //Getter and Setter method for Password
-    public void setPassword(String password){
-        this.password = password;
-    }
-    public String getPassword(){
-        return password;
+    public void setUsername(String username){
+        this.username = username;
     }
 
-    //Getter and Setter method for Confirm Password
-    public void setConfirm_password(String confirm_password){
-        this.confirm_password = confirm_password;
-    }
-    public String getConfirm_password(){
-        return confirm_password;
+    public String getUsername(){
+        return username;
     }
 
     //Getter and Setter method for Gender

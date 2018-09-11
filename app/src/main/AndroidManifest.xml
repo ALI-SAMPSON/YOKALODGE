@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.icode.yokalodge">
+    package="com.example.icode.yokalodge"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,17 +16,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SplashScreenActivity">
+        <activity android:name=".activities.HomeActivity">
+        </activity>
+        <activity android:name=".activities.AdminDashBoardActivity" />
+        <activity android:name=".activities.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Sign_up">
+        </activity>
+        <activity android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Sign_up">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AdminDashBoardActivity" />
-        <activity android:name=".activities.SignUpActivity" />
-        <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.SplashScreenActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".activities.AdminLoginActivity" />
         <activity android:name=".activities.AddRoomsActivity" />
         <activity android:name=".activities.DeleteRoomsActivity" />
@@ -34,7 +44,8 @@
         <activity android:name=".activities.AboutUsAdminActivity" />
         <activity android:name=".activities.ViewAddedRoomsActivity" />
         <activity android:name=".activities.MakePaymentActivity" />
-        <activity android:name=".activities.SliderViewActivity"></activity>
+        <activity android:name=".activities.SliderViewActivity" />
+        <activity android:name=".activities.ResetPasswordActivity"></activity>
     </application>
 
 </manifest>

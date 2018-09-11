@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CheckPaymentInfoActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".activities.HomeActivity"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/materialGreen"
         android:minHeight="?android:attr/actionBarSize"
-        android:background="@color/green"
-        android:fitsSystemWindows="true"
-        android:elevation="4dp">
-    </android.support.v7.widget.Toolbar>
+        app:titleTextColor="@color/colorWhite">
+    </android.support.v7.widget.Toolbar>-->
 
-    <TextView
-        android:id="@+id/internet_textView"
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/n_drawer_image">
+    </LinearLayout> -->
+
+    <android.support.design.widget.NavigationView
+        app:headerLayout="@layout/nav_header"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:textColor="@color/green"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        app:itemTextColor="@color/materialGreen"
+        app:itemIconTint="@color/materialGreen"
+        app:menu="@menu/drawer_menu"
+        android:layout_gravity="start"/>
+
 
     <ListView
         android:id="@+id/home_listView"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
+

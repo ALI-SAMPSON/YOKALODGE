@@ -1,4 +1,4 @@
-package com.example.icode.yokalodge.activities;
+package com.example.icode.yokalodge.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

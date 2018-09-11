@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -50,44 +52,53 @@ public class HomeActivity extends AppCompatActivity {
     //textView to alert the user of not connected to the internet
     TextView textView;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         //gets reference to the toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("HOME");
-        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        getSupportActionBar().setTitle("HOME");*/
+        //toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);*
 
         //checks if the actionBar is not equal to null and set the Home button on
-        /*if(getSupportActionBar() != null){
-            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }*/
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        mDrawerLayout = findViewById(R.id.drawer);
+        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listView = findViewById(R.id.home_listView);
 
-        relativeLayout = findViewById(R.id.relativeLayout);
-
-        textView = findViewById(R.id.internet_textView);
+        //textView = findViewById(R.id.internet_textView);
 
         rooms = new Rooms();
 
         populateRooms();
 
-       checkConnection();
+       //checkConnection();
 
     }
 
     //checks if network is available and make the listView Visible
-    public void checkConnection(){
+   public void checkConnection(){
         if(isNetworkAvailable()){
             listView.setVisibility(View.VISIBLE);
         }
         else if(!isNetworkAvailable()){
-            textView.setText("No Internet...Try Again!");
-            Snackbar.make(relativeLayout,"No Internet...Try Again!",Snackbar.LENGTH_LONG).show();
+            //textView.setText("No Internet...Try Again!");
+            Toast.makeText(HomeActivity.this, "No Internet...Try Again!", Toast.LENGTH_LONG).show();
+            //Snackbar.make(relativeLayout,"No Internet...Try Again!",Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -146,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
 
-        listView.setAdapter(firebaseListAdapter);
+       listView.setAdapter(firebaseListAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -154,12 +165,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 Rooms rooms = (Rooms)adapterView.getItemAtPosition(i);
 
-               // Users users =(Users)adapterView.getItemAtPosition(i);
-
                 Intent intentPayment = new Intent(HomeActivity.this,MakePaymentActivity.class);
-                /*intentPayment.putExtra("user_name",users.getUser_name());
-                intentPayment.putExtra("key",users.getUser_name());
-                */
+                //intentPayment.putExtra("user_name",users.getUser_name());
+                //intentPayment.putExtra("key",users.getUser_name());
                 intentPayment.putExtra("room_number",rooms.getRoom_number());
                 intentPayment.putExtra("price",rooms.getPrice());
                 startActivity(intentPayment);
@@ -180,6 +188,7 @@ public class HomeActivity extends AppCompatActivity {
         firebaseListAdapter.stopListening();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_user,menu);
@@ -188,16 +197,18 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        switch (item.getItemId()) {
             //sends user to the about activity
             case R.id.about_us:
-                startActivity(new Intent(HomeActivity.this,AboutUsUserActivity.class));
+                startActivity(new Intent(HomeActivity.this, AboutUsUserActivity.class));
                 break;
-                //logs user out of the system
+            //logs user out of the system
             case R.id.sign_out:
                 //checks if network is available before signing user out
-                if(isNetworkAvailable()){
-                    progressDialog = ProgressDialog.show(HomeActivity.this,"",null,true,true);
+                    progressDialog = ProgressDialog.show(HomeActivity.this, "", null, true, true);
                     progressDialog.setMessage("Please wait...");
                     final Timer timer = new Timer();
                     timer.schedule(new TimerTask() {
@@ -206,15 +217,14 @@ public class HomeActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             timer.cancel();
                         }
-                    },15000);
+                    }, 15000);
                     //HomeActivity.this.finish();
-                    startActivity(new Intent(HomeActivity.this,LoginActivity.class));
-                }
-                else if(!isNetworkAvailable()){
-                    Snackbar.make(relativeLayout,"No Internet...Please connect to a reliable network to Sign Out",Snackbar.LENGTH_INDEFINITE).show();
-                }
-
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                    break;
+                    default:
+                        break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

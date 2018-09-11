@@ -230,7 +230,7 @@ public class MakePaymentActivity extends AppCompatActivity {
                                 Notification notification = new Notification.Builder(MakePaymentActivity.this)
                                         .setSmallIcon(R.mipmap.app_icon_round)
                                         .setContentTitle("Yoka Logde")
-                                        .setContentText(" You have successfully made payment for room ")
+                                        .setContentText(" You have successfully made payment for room " + room_number)
                                         .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                                         .setContentIntent(pendingIntent).getNotification();
                                 notification.flags = Notification.FLAG_AUTO_CANCEL;

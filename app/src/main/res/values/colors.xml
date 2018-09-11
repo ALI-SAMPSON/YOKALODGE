@@ -34,5 +34,19 @@
         <color name="button_selector_color">#9E9E9E</color>
         <color name="light_blue">#00d4ff</color>
 
+    <color name="status_bar_back">#ff676767</color> <!-- this is blended with immersive_bars to produce the desired status bar color i.e. background_super_dark -->
+    <color name="background_super_dark">#ff292929</color>
+
+    <color name="white_ghost">#FAFAFF</color>
+    <color name="white_snow">#FBFAF8</color>
+
+    <color name="white_dim">#F8F7F3</color>
+
+    <color name="white_grey_dim">#D3D3C9</color>
+
+    <color name="white_grey_light">#DFDED9</color>
+
+    <color name="colorSilver">#F3F4F6</color>
+
     </resources>
 

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.icode.yokalodge.R;
+import com.example.icode.yokalodge.adapters.SliderAdapter;
 
 public class SliderViewActivity extends AppCompatActivity {
 

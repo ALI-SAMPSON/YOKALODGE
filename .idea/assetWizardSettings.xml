@@ -19,8 +19,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundImage" value="C:\Users\iCODE\Desktop\profile_icon.jpg" />
-                                      <entry key="foregroundImage" value="C:\Users\iCODE\Desktop\logo.jpg" />
-                                      <entry key="outputName" value="logo" />
+                                      <entry key="foregroundImage" value="C:\Users\iCODE\Desktop\profile.jpg" />
+                                      <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="outputName" value="nd_profile_icon" />
+                                      <entry key="webIconShape" value="CIRCLE" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -51,7 +53,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_menu_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_person_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -61,7 +63,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_menu_black_24dp" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_person_white" />
                             <entry key="sourceFile" value="C:\Users\iCODE" />
                           </map>
                         </option>

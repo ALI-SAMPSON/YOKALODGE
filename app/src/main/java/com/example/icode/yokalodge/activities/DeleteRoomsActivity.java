@@ -72,7 +72,6 @@ public class DeleteRoomsActivity extends AppCompatActivity {
         //key1 = findViewById(R.id.key);
         //key1.setText(key);
 
-
         editTextRoomNumber.setText(getIntent().getStringExtra("room_number"));
         editTextPrice.setText(getIntent().getStringExtra("price"));
         Picasso.with(DeleteRoomsActivity.this).load(rooms.getRoom_image()).into(imageView);
