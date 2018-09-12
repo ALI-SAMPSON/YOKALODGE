@@ -24,11 +24,6 @@
         <activity android:name=".activities.AdminDashBoardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AdminDashBoard">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.SignUpActivity"
@@ -48,7 +43,12 @@
         </activity>
         <activity android:name=".activities.AddRoomsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/homeTheme">
+            android:theme="@style/AppTheme.AdminComponents">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activities.DeleteRoomsActivity" />
         <activity android:name=".activities.EditCredentialsActivity" />

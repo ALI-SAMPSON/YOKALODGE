@@ -18,7 +18,7 @@
         <color name="skyBlue">#1D9BE9</color>
         <color name="colorVioletLight">#A292C7</color>
         <color name="colorVioletDeep">#6d73c9</color>
-        <color name="colorViolet">#5583C1</color>
+        <color name="colorViolet">#EE82EE</color>
         <color name="colorTransparentWhite">#cccccc</color>
 
         <color name="colorDeepPurple">#7c4dff</color>
@@ -59,6 +59,10 @@
     <!--Color for admin UI -->
     <color name="colorBlue">#0E81D1</color>
     <color name="colorPink">#FE5BDC</color>
+    <color name="orange_light">#FE7058</color>
+    <color name="orange_deep">#F1553F</color>
+    <color name="dark_violet">#9400D3</color>
+    <color name="blue_violet">#8A2BE2</color>
 
     </resources>
 

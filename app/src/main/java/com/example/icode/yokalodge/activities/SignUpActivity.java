@@ -292,7 +292,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void uploadImage(){
 
         final StorageReference profileImageRef = FirebaseStorage.getInstance()
-                .getReference("Profile Pictures/" + System.currentTimeMillis() + ".jpg");
+                .getReference("Users Profile Pictures/" + System.currentTimeMillis() + ".jpg");
 
         if(uriProfileImage != null){
             // displays the progressBar

@@ -97,7 +97,7 @@
     <string name="text_add">Add Room</string>
     <string name="text_delete">Delete Room</string>
     <string name="price">Price</string>
-    <string name="room_image">Room Image:</string>
+    <string name="room_image">Upload Room Image here...</string>
     <string name="welcome">WELCOME TO YOKA LODGE!</string>
     <string name="welcome_admin">WELCOME ADMIN</string>
     <string name="welcome_msg">Hope you enjoy the stay</string>

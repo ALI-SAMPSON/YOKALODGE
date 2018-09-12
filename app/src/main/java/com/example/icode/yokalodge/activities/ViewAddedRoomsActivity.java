@@ -36,18 +36,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ViewAddedRoomsActivity extends AppCompatActivity {
 
     ListView listView;
 
-    private FirebaseDatabase roomdB;
-    private DatabaseReference roomRef;
 
     private StorageReference storageReference;
 
     Rooms rooms;
-
-    ImageView imageView;
 
     //ArrayList<Rooms> arrayList;
 
@@ -73,9 +71,6 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
         listView = findViewById(R.id.view_rooms_listView);
 
         rooms = new Rooms();
-
-        //roomdB = FirebaseDatabase.getInstance();
-        //roomRef = roomdB.getReference().child("Rooms");
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -103,8 +98,8 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
 
                 //TextView and imageView to populate the data from the database
                 TextView room_number = v.findViewById(R.id.room_number);
-                TextView price = v.findViewById(R.id.price);
-                ImageView imageView = v.findViewById(R.id.room_image);
+                TextView price = v.findViewById(R.id.room_price);
+                CircleImageView circleImageView = v.findViewById(R.id.room_image);
 
                 //instance of the room Class and type casting to the Object model
                 Rooms rooms = (Rooms)model;
@@ -113,10 +108,11 @@ public class ViewAddedRoomsActivity extends AppCompatActivity {
                 room_number.setText(" Room Number: " + rooms.getRoom_number().toString());
                 price.setText(" Price: GHS " + rooms.getPrice().toString());
 
+                /*Glide.with(getApplicationContext())
+                        .load(rooms.getRoom_image().toString())
+                        .into(circleImageView);*/
                 //picasso library to load the image into the imageView
-                Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(imageView);
-
-                //Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(imageView);
+                Picasso.with(ViewAddedRoomsActivity.this).load(rooms.getRoom_image().toString()).into(circleImageView);
 
             }
         };

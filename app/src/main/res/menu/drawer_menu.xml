@@ -16,7 +16,7 @@
     <item
         android:id="@+id/booked_rooms"
         android:title="@string/booked_rooms"
-        android:icon="@drawable/ic_room_drawable_left_black_24dp">
+        android:icon="@drawable/ic_room">
     </item>
 
     <item
