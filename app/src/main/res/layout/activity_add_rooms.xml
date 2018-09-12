@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.AddRoomsActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:minHeight="?android:attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        android:background="@color/green">
-    </android.support.v7.widget.Toolbar>
-
     <!-- material design LinearLayout -->
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -83,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_room_drawable_left_black_24dp"
+            android:drawablePadding="@dimen/spacing_normal"
             android:textColor="@color/green"
             android:textColorHint="@color/green"
             android:hint="@string/room_number"
@@ -110,6 +101,7 @@
             android:textColor="@color/green"
             android:textColorHint="@color/green"
             android:drawableLeft="@drawable/ic_payment_drawable_left_24dp"
+            android:drawablePadding="@dimen/spacing_normal"
             android:hint="@string/price"
             android:inputType="numberDecimal"
             android:maxLines="1"/>

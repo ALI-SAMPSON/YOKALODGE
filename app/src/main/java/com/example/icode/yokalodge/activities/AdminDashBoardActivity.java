@@ -10,7 +10,6 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.example.icode.yokalodge.R;
-import com.example.icode.yokalodge.models.CurrentAdmin;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,8 +27,6 @@ public class AdminDashBoardActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
-    private CurrentAdmin currentAdmin;
-
     private DatabaseReference currentAdminRef;
 
     @Override
@@ -45,7 +42,6 @@ public class AdminDashBoardActivity extends AppCompatActivity {
         cardView5 = findViewById(R.id.cardView5);
 
         //instantiation of the class
-        currentAdmin = new CurrentAdmin();
 
         currentAdminRef = FirebaseDatabase.getInstance().getReference().child("CurrentAdmin");
 
@@ -78,7 +74,7 @@ public class AdminDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //starts the edit credentials activity activity
-                startActivity(new Intent(AdminDashBoardActivity.this,EditCredentialsActivity.class));
+                startActivity(new Intent(AdminDashBoardActivity.this,ResetAdminPasswordActivity.class));
             }
         });
 

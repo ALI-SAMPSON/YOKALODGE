@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetAdminPasswordActivity extends AppCompatActivity {
 
     EditText editTextEmail;
 
@@ -30,7 +30,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(R.layout.activity_reset_admin_password);
 
         // getting reference to the view objects
         editTextEmail = findViewById(R.id.email);
@@ -40,7 +40,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     //  on Click method is reset password button
@@ -94,7 +93,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     // method to go back
     public void goBackButton(View view) {
         // finishes the current activity and open the resetPassword Activity
-        ResetPasswordActivity.this.finish();
-        startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
+        ResetAdminPasswordActivity.this.finish();
+        startActivity(new Intent(ResetAdminPasswordActivity.this, AdminDashBoardActivity.class));
     }
 }

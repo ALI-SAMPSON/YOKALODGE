@@ -16,6 +16,8 @@
     <string name="add_rooms_sub_text">add rooms available to the system</string>
     <string name="delete_rooms">Delete Rooms</string>
     <string name="delete_rooms_sub_text">delete rooms which are not needed</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_password_sub_text">Noticed any unauthorised access? then reset password</string>
     <string name="edit_credentials">Edit Credentials</string>
     <string name="edit_credentials_sub_text">lets edit your credentials if necessary</string>
     <string name="check_payment_info">Check Payment Info</string>
@@ -97,11 +99,13 @@
     <string name="price">Price</string>
     <string name="room_image">Room Image:</string>
     <string name="welcome">WELCOME TO YOKA LODGE!</string>
+    <string name="welcome_admin">WELCOME ADMIN</string>
     <string name="welcome_msg">Hope you enjoy the stay</string>
     <string name="sign_up_link">Not yet a user? Sign Up</string>
     <string name="admin_login_link">Already an Admin? Login</string>
     <string name="login_link">Already a user? Login</string>
     <string name="login">Login</string>
+    <string name="sign_in">Sign In</string>
     <string name="signUp">Sign Up</string>
     <string name="splash_text">powered by iCODE Studios</string>
     <string name="lbl_forgot_password">!! Forgot Password !!</string>

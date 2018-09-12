@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_ui"
+    android:background="@drawable/login_bg"
     android:id="@+id/nestedScrollView"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
@@ -20,39 +20,50 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Relative layout to place the progressBar at the center of the circular ImageView-->
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circularImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:scaleType="centerCrop"
+            android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/open_gallery"
+            android:src="@drawable/profile_icon_blue"
             android:onClick="onCircularImageViewClick"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorVioletDeep">
+            app:civ_border_width="1.5dp"
+            app:civ_border_color="@color/colorViolet">
         </de.hdodenhof.circleimageview.CircleImageView>
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:visibility="gone"/>
+
+        </RelativeLayout>
 
     <!-- TextInputLayout and AppCompatEdiText for Email -->
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayoutEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="0dp"
         android:textAlignment="center"
         android:textColorHint="@color/colorWhite">
         <EditText
             android:id="@+id/editTextEmail"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="0dp"
@@ -78,7 +89,7 @@
             android:textColorHint="@color/colorWhite">
             <EditText
                 android:id="@+id/editTextUsername"
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="0dp"
@@ -106,7 +117,7 @@
         app:passwordToggleTint="@color/colorWhite">
         <EditText
             android:id="@+id/editTextPassword"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="0dp"
@@ -128,11 +139,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="0dp"
             android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="320dp"
+                android:layout_width="300dp"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:layout_height="match_parent"
@@ -180,7 +191,7 @@
         android:textColorHint="@color/colorWhite">
         <EditText
             android:id="@+id/editTextMobileNumber"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="0dp"
@@ -196,27 +207,18 @@
             android:maxLines="1"/>
     </android.support.design.widget.TextInputLayout>
 
-
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center|bottom"
-            android:layout_margin="5dp"
-            android:visibility="gone"/>
-
         <!-- Sign Up Button -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/appCompatButtonSignUp"
             android:layout_marginTop="30dp"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/textInputLayoutMobileNumber"
             android:text="@string/signUp"
-            android:textColor="@color/colorVioletDeep"
+            android:textColor="@color/colorWhite"
             android:fontFamily="@font/nunito_semibold"
             android:textSize="18sp"
             android:textStyle="normal"
@@ -224,11 +226,19 @@
             android:background="@drawable/round_corner_button_signup"
             android:onClick="onSignUpButtonClick"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="10dp"
+            android:visibility="gone"/>
+
         <!-- Link to the Login Page -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/appCompatButtonLinkLogin"
-            android:layout_marginTop="20dp"
-            android:layout_width="320dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"

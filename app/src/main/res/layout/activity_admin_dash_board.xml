@@ -15,8 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/admin_dash_board"
+        android:fontFamily="@font/nunito_extrabold"
         android:textColor="@color/materialGreen"
-        android:textStyle="bold"
+        android:textStyle="normal"
         android:textSize="25sp"
         android:gravity="center"/>
 
@@ -160,14 +161,14 @@
                     android:layout_height="65dp"
                     android:background="@drawable/circular_background_color_primary_dark"
                     android:padding="10dp"
-                    android:src="@drawable/ic_edit_credentials_black_24dp" />
+                    android:src="@drawable/ic_lock_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textAllCaps="true"
-                    android:text="@string/edit_credentials"
+                    android:text="@string/reset_password"
                     android:textStyle="bold" />
 
                 <View
@@ -182,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="@string/edit_credentials_sub_text"
+                    android:text="@string/reset_password_sub_text"
                     android:textAlignment="center"
                     android:textColor="@color/colorGray" />
 

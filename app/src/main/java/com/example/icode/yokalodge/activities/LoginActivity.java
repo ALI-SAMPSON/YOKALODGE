@@ -14,6 +14,8 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ import java.util.TimerTask;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // global or class variables
     ProgressDialog progressDialog;
 
     ProgressBar progressBar;
@@ -55,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // removes status bar and to make background fit Screen
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -156,6 +162,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //method called when the link to the SignUp Activity is clicked or tapped
     public void onSignUpLinkClick(View View){
+        // finishes the current activity and open the Sign Up Activity
+        LoginActivity.this.finish();
         //starts the Sign Up Activity
         startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
 
@@ -163,6 +171,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //method called when the link to the SignUp Activity is clicked or tapped
     public void onAdminLoginButtonLinkClick(View view){
+        // finishes the current activity and open the AdminLoginActivity Activity
+        LoginActivity.this.finish();
         //starts the AdminLoginActivity
         startActivity(new Intent(LoginActivity.this,AdminLoginActivity.class));
     }

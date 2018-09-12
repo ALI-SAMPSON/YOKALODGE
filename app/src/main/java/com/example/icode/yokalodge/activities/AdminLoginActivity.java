@@ -1,50 +1,34 @@
 package com.example.icode.yokalodge.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.example.icode.yokalodge.R;
-import com.example.icode.yokalodge.models.Admin;
-import com.example.icode.yokalodge.models.CurrentAdmin;
-import com.example.icode.yokalodge.models.CurrentUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ThrowOnExtraProperties;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminLoginActivity extends AppCompatActivity {
 
-    private EditText editTextUsername;
+    private EditText editTextEmail;
     private EditText editTextPassword;
 
-    //instance of the Admin class
-    private Admin admin;
+    private NestedScrollView nestedScrollView;
 
-    private CurrentAdmin currentAdmin;
+    //an instance of the ProgressBar Class
+    private ProgressBar progressBar;
 
-    //database objects
-    private FirebaseDatabase admindB;
-    private DatabaseReference adminRef;
-
-    private FirebaseDatabase currentAdmindB;
-    private DatabaseReference currentAdminRef;
-
-    //an instance of the ProgressDialog Class
-    private ProgressDialog progressDialog;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,57 +36,56 @@ public class AdminLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_login);
 
         //gets an instance of the ActionBar
+
         ActionBar actionBar = getSupportActionBar();
 
         if(actionBar != null){
             actionBar.hide();
         }
 
+
         //get reference to the EditText fields defined in the xml file
-        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
 
-        admin = new Admin();
+        progressBar = findViewById(R.id.progressBar);
 
-        currentAdmin = new CurrentAdmin();
+        nestedScrollView = findViewById(R.id.nestedScrollView);
 
-        //instantiation of the Database objects
-        admindB = FirebaseDatabase.getInstance();
-        adminRef = admindB.getReference().child("Admin");
-
-        currentAdmindB = FirebaseDatabase.getInstance();
-        currentAdminRef = currentAdmindB.getReference().child("CurrentAdmin");
-
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
     //login button method for admin
     public void onLoginButtonClick(View view){
 
-        //string for error handling
-        String error_field = "This field cannot be left blank";
-        String password_length = "Password length cannot be less than 6";
-
         //get text from the EditText fields
-        String username = editTextUsername.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         //checks if text entered are valid and textfields are not empty
-        if(username.equals("")){
-            editTextUsername.setError(error_field);
-            //Toast.makeText(LoginActivity.this,"Username is a required field",Toast.LENGTH_SHORT).show();
+        if(email.isEmpty()){
+            editTextEmail.setError(getString(R.string.error_empty_email));
+            editTextEmail.requestFocus();
+            return;
         }
-        else if(password.equals("")){
-            editTextPassword.setError(error_field);
-            //Toast.makeText(LoginActivity.this,"Password is a required field", Toast.LENGTH_SHORT).show();
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            editTextEmail.setError(getString(R.string.email_invalid));
+            editTextEmail.requestFocus();
+            return;
+        }
+        else if(password.isEmpty()){
+            editTextPassword.setError(getString(R.string.error_empty_password));
+            editTextPassword.requestFocus();
+            return;
         }
         else if(password.length() < 6){
-            editTextPassword.setError(password_length);
-        }
-        else if(username.equals("") && password.equals("")){
-            Toast.makeText(AdminLoginActivity.this,"Email and Password are required fields",Toast.LENGTH_SHORT).show();
+            editTextPassword.setError(getString(R.string.error_password_length));
+            editTextPassword.requestFocus();
+            return;
         }
         else{
+            // method call to the LoginAdmin method
             loginAdmin();
         }
 
@@ -111,98 +94,43 @@ public class AdminLoginActivity extends AppCompatActivity {
     //method for logging Admin into the system
     public void loginAdmin(){
 
-        progressDialog = ProgressDialog.show(AdminLoginActivity.this,"",null,true,true);
-        progressDialog.setMessage("Please wait...");
+        progressBar.setVisibility(View.VISIBLE);
 
         //getting input from the editText
-        final String username = editTextUsername.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
 
-        adminRef.child(username).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    //gets a snapshot of the data in the database
-                    Admin admin = dataSnapshot.getValue(Admin.class);
-                    //checks if password entered equals the one in the database
-                    if(password.equals(admin.getPassword())){
-                        final Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                timer.cancel();
-                            }
-                        },5000);
-                        clearBothTextFields(); //call to this method
-                        Toast.makeText(AdminLoginActivity.this,"You have successfully Logged In", Toast.LENGTH_LONG).show();
-                        //sets the current logged in admin details to the current Admin
-
-
-                        currentAdmin.setCurrent_user_name(username);
-                        currentAdmin.setCurrent_password(password);
-
-                        //add the current logged in admin to the CurrentAdmin table
-                        currentAdminRef.child(currentAdmin.getCurrent_user_name()).setValue(currentAdmin);
-
-                            /*    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-
-                                }
-                            }
-                        });*/
-
-                        //opens the admin DashBoard
-                        startActivity(new Intent(AdminLoginActivity.this,AdminDashBoardActivity.class));
-
-                    }
-                    //checks if password entered does not equal the one in the database
-                    else if(!password.equals(admin.getPassword())){
-                        final  Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                timer.cancel();
-                            }
-                        },5000);
-                        clearPasswordTextField();
-                        Toast.makeText(AdminLoginActivity.this,"Incorrect Username and Password", Toast.LENGTH_LONG).show();
-                        //sets the current logged in admin details to null
-                        currentAdmin.setCurrent_user_name(null);
-                        currentAdmin.setCurrent_password(null);
-                    }
-                }
-                else {
-                    final Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                            timer.cancel();
+        // method to sign admin into the system
+        mAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            // displays a success message
+                            Snackbar.make(nestedScrollView,getString(R.string.login_successful),Snackbar.LENGTH_LONG).show();
+                            clearBothTextFields();
+                            // finishes this activity and start the AdminDashBoard Activity
+                            AdminLoginActivity.this.finish();
+                            startActivity(new Intent(AdminLoginActivity.this,AdminDashBoardActivity.class));
                         }
-                    },5000);
-                    Toast.makeText(AdminLoginActivity.this,"Admin does not exist in database...please try again later!", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(AdminLoginActivity.this,databaseError.toException().toString(),Toast.LENGTH_LONG).show();
-            }
-        });
-
+                        else{
+                            // displays an error message
+                            Snackbar.make(nestedScrollView,task.getException().getMessage(),Snackbar.LENGTH_LONG).show();
+                            clearPasswordTextField();
+                        }
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
 
     }
 
-    // clears the Username and Password EditText
+    // clears all text from the Username and Password EditText
     public void clearBothTextFields(){
-        editTextUsername.setText(null);
+        editTextEmail.setText(null);
         editTextPassword.setText(null);
     }
 
+    // clears all text from the Password EditText
     public void clearPasswordTextField(){
         editTextPassword.setText(null);
     }
@@ -210,6 +138,12 @@ public class AdminLoginActivity extends AppCompatActivity {
     //link to the user login interface
     public void onLoginButtonLinkClick(View view){
         //starts the Users LoginActivity
+        AdminLoginActivity.this.finish();
         startActivity(new Intent(AdminLoginActivity.this,LoginActivity.class));
+    }
+
+    // method to reset admin password
+    public void onButtonResetPassword(View view){
+
     }
 }

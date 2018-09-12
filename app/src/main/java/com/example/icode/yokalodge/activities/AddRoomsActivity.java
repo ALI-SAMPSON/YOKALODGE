@@ -61,13 +61,9 @@ public class AddRoomsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_rooms);
 
-        //gets reference to the toolbar and sets a title on it
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ADD ROOMS");
-
         //checks if there is a toolbar, if yes it set the Home Button on it
         if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle("ADD ROOMS");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);

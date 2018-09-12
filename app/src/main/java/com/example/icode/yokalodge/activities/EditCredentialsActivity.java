@@ -2,7 +2,6 @@ package com.example.icode.yokalodge.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.icode.yokalodge.R;
 import com.example.icode.yokalodge.models.Admin;
-import com.example.icode.yokalodge.models.CurrentAdmin;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +31,7 @@ public class EditCredentialsActivity extends AppCompatActivity {
 
     Admin admin;
 
-    CurrentAdmin currentAdmin;
+    //CurrentAdmin currentAdmin;
 
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -70,14 +64,14 @@ public class EditCredentialsActivity extends AppCompatActivity {
 
         //instances of the classes
         admin = new Admin();
-        currentAdmin = new CurrentAdmin();
+        //currentAdmin = new CurrentAdmin();
 
         //instances of the classes
         relativeLayout = findViewById(R.id.relativeLayout);
 
         //sets the username and password EditTExt fields with the current logged in Admin details
-        editTextUsername.setText(currentAdmin.getCurrent_user_name());
-        editTextPassword.setText(currentAdmin.getCurrent_password());
+        //editTextUsername.setText(currentAdmin.getCurrent_user_name());
+        //editTextPassword.setText(currentAdmin.getCurrent_password());
 
     }
 
